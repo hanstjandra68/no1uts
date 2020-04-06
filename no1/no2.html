@@ -1,0 +1,112 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Koperasi c14180068</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+    
+</head>
+
+<body>
+	<div data-role="page" id="win1">
+        <div data-role="header"> <h1> Input pinjaman </h1> </div>
+        <div role="main" class="ui-content"> 
+            <label for="slider-flip-m">Program flip:</label>
+            <select name="slider-flip-m" id="sliders" data-role="slider" data-mini="true">
+                <option value="off">No</option>
+                <option value="on" selected="">Yes</option>
+            </select>
+            <label for="text-basic">Pinjaman: </label>
+            <input type="text" name="text-basic" id="pinjaman" value="">
+            <label for="textarea">Waktu pinjam: </label>
+            <textarea cols="40" rows="8" name="textarea" id="lama"></textarea>
+            <button class="ui-btn" onclick="calculate()" id="button1">Calculate pengembalian</button>
+            <p>Total pengembalian: <span id="hasila"></span> </p>
+        </div>
+        <div data-role="footer"> <h1> Page 1 </h1> </div>
+        <a href="#win2" data-transition="flip"> Pindah Hal 2</a>
+    </div>
+    <div data-role="page" id="win2">
+        <div data-role="header" data-add-back-btn=true> <h1> Data pinjaman </h1> </div>
+        <div role="main" class="ui-content"> 
+            <select name="select-choice-1" id="selectt">
+                    <option value="yakin">Yakin</option>
+                    <option value="tyakin">Tidak yakin</option>
+                </select>
+            <h1>List Pinjaman</h1>
+            <p id="list"> </p>
+            <label for="select-choice-1" class="select">Select, native menu</label>
+            <button class="ui-btn" onclick="refresh()">Refresh List</button>
+        <div data-role="footer"> <h1> Page 2 </h1> </div>
+        <a href="#win1" data-transition="pop"> Pindah Hal 1</a>
+    </div>
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript">
+    var count=0;
+    var arra=[];
+    var arrb=[];
+    var arrc=[];
+    var hasil = 0;
+    $(document).on("pagebeforecreate",function(event){
+        alert("Sebelum halaman ini di create saya Hans C14180068");
+    });
+    $(document).on("pagecreate",function(event){
+        alert("Ini no 2");
+    });
+    $(document).on("pageshow","#win2",function(){
+        alert("page two is now shown");
+    });
+    $(document).on("pageshow","#win1",function(){
+        alert("page one is now shown");
+    });
+    $("#button1").on("tap",function(){
+        alert("Calculating");
+    });
+    function calculate(){
+        if($("#sliders").val()=="on"){
+            if(parseInt($("#lama").val())<=6 && parseInt($("#lama").val())>=1){
+                hasil=parseInt($("#pinjaman").val())+(parseInt($("#pinjaman").val()) * (2/100) * parseInt($("#lama").val()));
+                $("#hasila").text(hasil);
+                arra.push($("#pinjaman").val());
+                arrb.push($("#lama").val());
+                arrc.push(hasil);
+                count=count+1;
+            }
+            else if(parseInt($("#lama").val())<=12 && parseInt($("#lama").val())>=7){
+                hasil=parseInt($("#pinjaman").val())+(parseInt($("#pinjaman").val()) * (1.5/100) * parseInt($("#lama").val()));
+                $("#hasila").text(hasil);
+                arra.push($("#pinjaman").val());
+                arrb.push($("#lama").val());
+                arrc.push(hasil);
+                count =count +1;
+            }
+            else if(parseInt($("#lama").val())>12){
+                hasil=parseInt($("#pinjaman").val())+(parseInt($("#pinjaman").val()) * (1/100) * parseInt($("#lama").val()));
+                $("#hasila").text(hasil);
+                arra.push($("#pinjaman").val());
+                arrb.push($("#lama").val());
+                arrc.push(hasil);
+                count = count+1;
+            }
+        }
+        else{
+            alert("harus di on in dulu");
+        }
+    }
+    function refresh(){
+        if($("#selectt").val()==="yakin"){
+            for(let i=0;i<count;i++){
+                $("#list").append("<p>Pinjaman ke "+(i+1)+"");
+                $("#list").append("<p>Pinjaman: "+arra[i]+"</p><p>Lama Pinjaman: "+arrb[i]+"</p><p>Total Pengembalian: "+arrc[i]+"</p><br>");
+            }
+        }
+        else{
+            alert("Harus yakin dolo");
+        }
+    }
+    </script>
+</body>
+</html>
